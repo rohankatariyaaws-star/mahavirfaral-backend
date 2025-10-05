@@ -1,0 +1,51 @@
+{
+    "family": "ecommerce-fargate-task",
+    "networkMode": "awsvpc",
+    "requiresCompatibilities": ["FARGATE"],
+    "cpu": "512",
+    "memory": "1024",
+    "executionRoleArn": "arn:aws:iam::556173312286:role/ecommerce-fargate-execution-role",
+    "containerDefinitions": [
+        {
+            "name": "ecommerce-fargate-container",
+            "image": "556173312286.dkr.ecr.ap-south-1.amazonaws.com/ecommerce-fargate:latest",
+            "portMappings": [
+                {
+                    "containerPort": 8080,
+                    "protocol": "tcp"
+                }
+            ],
+            "environment": [
+                {
+                    "name": "DATABASE_URL",
+                    "value": "jdbc:postgresql://ecommerce-lambda-db.c3wm66u2mamb.ap-south-1.rds.amazonaws.com:5432/ecommerce_db"
+                },
+                {
+                    "name": "DB_USERNAME",
+                    "value": "ecommerceadmin"
+                },
+                {
+                    "name": "DB_PASSWORD",
+                    "value": "MyPassword123"
+                },
+                {
+                    "name": "JWT_SECRET",
+                    "value": "jmUTgRRAM0u9iEozvqmv3S0z4NexhIrYLEBXc/EM854="
+                },
+                {
+                    "name": "SPRING_PROFILES_ACTIVE",
+                    "value": "production"
+                }
+            ],
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-group": "/ecs/ecommerce-fargate",
+                    "awslogs-region": "ap-south-1",
+                    "awslogs-stream-prefix": "ecs"
+                }
+            },
+            "essential": true
+        }
+    ]
+}

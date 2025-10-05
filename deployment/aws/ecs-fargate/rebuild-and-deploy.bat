@@ -1,0 +1,3 @@
+@echo off
+echo Rebuilding Docker image with updated configuration...
+bash deploy-ecs-fargate.sh

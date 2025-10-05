@@ -1,0 +1,7 @@
+{
+  "detail": {
+    "clusterArn": "arn:aws:ecs:ap-south-1:556173312286:cluster/ecommerce-fargate-cluster",
+    "taskArn": "arn:aws:ecs:ap-south-1:556173312286:task/ecommerce-fargate-cluster/4e0df43ace434aa681813dfe6b5e2ffe",
+    "lastStatus": "RUNNING"
+  }
+}

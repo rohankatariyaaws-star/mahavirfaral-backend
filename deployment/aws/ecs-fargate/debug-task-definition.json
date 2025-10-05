@@ -1,0 +1,60 @@
+{
+    "family": "ecommerce-fargate-task-debug",
+    "networkMode": "awsvpc",
+    "requiresCompatibilities": ["FARGATE"],
+    "cpu": "256",
+    "memory": "512",
+    "executionRoleArn": "arn:aws:iam::556173312286:role/ecommerce-fargate-execution-role",
+    "containerDefinitions": [
+        {
+            "name": "ecommerce-fargate-container-debug",
+            "image": "556173312286.dkr.ecr.ap-south-1.amazonaws.com/ecommerce-fargate:latest",
+            "portMappings": [
+                {
+                    "containerPort": 8080,
+                    "protocol": "tcp"
+                }
+            ],
+            "environment": [
+                {
+                    "name": "DATABASE_URL",
+                    "value": "jdbc:postgresql://ecommerce-lambda-db.c3wm66u2mamb.ap-south-1.rds.amazonaws.com:5432/ecommerce_db"
+                },
+                {
+                    "name": "DB_USERNAME",
+                    "value": "ecommerceadmin"
+                },
+                {
+                    "name": "DB_PASSWORD",
+                    "value": "MyPassword123"
+                },
+                {
+                    "name": "JWT_SECRET",
+                    "value": "debug-secret-key-12345"
+                },
+                {
+                    "name": "SPRING_PROFILES_ACTIVE",
+                    "value": "production"
+                },
+                {
+                    "name": "LOGGING_LEVEL_ROOT",
+                    "value": "INFO"
+                },
+                {
+                    "name": "JAVA_OPTS",
+                    "value": "-Xms256m -Xmx512m"
+                }
+            ],
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-group": "/ecs/ecommerce-fargate-debug",
+                    "awslogs-region": "ap-south-1",
+                    "awslogs-stream-prefix": "debug",
+                    "awslogs-create-group": "true"
+                }
+            },
+            "essential": true
+        }
+    ]
+}

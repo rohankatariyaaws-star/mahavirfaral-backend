@@ -1,0 +1,48 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+
+Globals:
+  Function:
+    Timeout: 30
+    MemorySize: 512
+
+Resources:
+  EcommerceFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: .
+      Handler: LambdaHandler::handleRequest
+      Runtime: java17
+      Environment:
+        Variables:
+          DATABASE_URL: !Sub "jdbc:postgresql://${DatabaseEndpoint}:5432/ecommerce_db"
+          DB_USERNAME: admin
+          DB_PASSWORD: !Ref DatabasePassword
+          JWT_SECRET: !Ref JWTSecret
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            Path: /{proxy+}
+            Method: ANY
+    Metadata:
+      BuildMethod: makefile
+
+  DatabaseEndpoint:
+    Type: AWS::SSM::Parameter::Value<String>
+    Default: ecommerce-db-endpoint
+
+  DatabasePassword:
+    Type: AWS::SSM::Parameter::Value<String>
+    Default: ecommerce-db-password
+    NoEcho: true
+
+  JWTSecret:
+    Type: AWS::SSM::Parameter::Value<String>
+    Default: ecommerce-jwt-secret
+    NoEcho: true
+
+Outputs:
+  ApiGatewayEndpoint:
+    Description: "API Gateway endpoint URL"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/"

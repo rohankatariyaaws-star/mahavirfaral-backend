@@ -1,0 +1,13 @@
+# Linux/Mac
+./start-servers.sh start     # Start both servers
+./start-servers.sh stop      # Stop both servers
+./start-servers.sh restart   # Restart both servers
+./start-servers.sh status    # Check server status
+./start-servers.sh logs      # Show recent logs
+
+# Windows
+start-servers.bat start      # Start both servers
+start-servers.bat stop       # Stop both servers
+start-servers.bat restart    # Restart both servers
+start-servers.bat status     # Check server status
+start-servers.bat logs       # Show recent logs
