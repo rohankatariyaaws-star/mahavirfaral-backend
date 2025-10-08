@@ -55,8 +55,6 @@ public class WishlistService {
 
     @Transactional
     public void removeFromWishlist(Long userId, Long productId) {
-        User user = userRepository.findById(userId)
-            .orElseThrow(() -> new RuntimeException("User not found"));
-        wishlistRepository.deleteByUserAndProduct_Id(user, productId);
+        wishlistRepository.removeWishlistFromUser(userId, productId);
     }
 }
