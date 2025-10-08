@@ -39,7 +39,8 @@ public class CartService {
         
         Product product = productRepository.findById(productId)
             .orElseThrow(() -> new RuntimeException("Product not found"));
-        Optional<CartItem> existingItem = cartItemRepository.findByUserAndProduct_IdAndSizeAndPrice(user, productId, size, price);
+        Optional<CartItem> existingItem = cartItemRepository.findByUserAndProduct_IdAndSizeAndPrice(user.getId(),
+                productId, size, price);
         if (existingItem.isPresent()) {
             CartItem item = existingItem.get();
             item.setQuantity(item.getQuantity() + quantity);
@@ -75,14 +76,14 @@ public class CartService {
                     break;
                 case "update":
                     Optional<CartItem> existingItem = cartItemRepository
-                        .findByUserAndProduct_IdAndSizeAndPrice(user, op.getProductId(), op.getSize(), op.getPrice());
+                        .findByUserAndProduct_IdAndSizeAndPrice(user.getId(), op.getProductId(), op.getSize(), op.getPrice());
                     if (existingItem.isPresent()) {
                         updateQuantity(existingItem.get().getId(), op.getQuantity());
                     }
                     break;
                 case "remove":
                     Optional<CartItem> itemToRemove = cartItemRepository
-                        .findByUserAndProduct_IdAndSizeAndPrice(user, op.getProductId(), op.getSize(), op.getPrice());
+                        .findByUserAndProduct_IdAndSizeAndPrice(user.getId(), op.getProductId(), op.getSize(), op.getPrice());
                     if (itemToRemove.isPresent()) {
                         removeFromCart(itemToRemove.get().getId());
                     }

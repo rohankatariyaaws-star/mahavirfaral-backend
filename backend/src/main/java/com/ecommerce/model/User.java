@@ -70,6 +70,16 @@ public class User {
         this.password = password;
     }
 
+    public void addWhichListToUser(Wishlist wishlist){
+        this.getWishlistItems().add(wishlist);
+        wishlist.setUser(this);
+    }
+
+    public void removeWhichListFromUser(Wishlist wishlist){
+        this.getWishlistItems().remove(wishlist);
+        wishlist.setUser(null);
+    }
+
     public User() {
 
     }
