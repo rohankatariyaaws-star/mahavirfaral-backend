@@ -102,6 +102,7 @@ main() {
             source "$MODULE_DIR/lambda.sh"
             source "$MODULE_DIR/netlify.sh"
             setup_netlify_credentials
+            trigger_initial_setup
             deploy_netlify
             ;;
         4)

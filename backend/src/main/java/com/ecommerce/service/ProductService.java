@@ -57,12 +57,7 @@ public class ProductService {
         product.setImageUrl(productDetails.getImageUrl());
         product.setCategory(productDetails.getCategory());
         
-        // Handle backward compatibility for single size/price/quantity
-        if (productDetails.getPrice() != null && productDetails.getQuantity() != null) {
-            product.setPrice(productDetails.getPrice());
-            product.setQuantity(productDetails.getQuantity());
-            product.setSize(productDetails.getSize());
-        }
+        // Product no longer has direct price/quantity/size - only in variants
         
         // Handle multiple variants if provided
         if (productDetails.getVariants() != null && !productDetails.getVariants().isEmpty()) {
@@ -84,11 +79,7 @@ public class ProductService {
         productRepository.deleteById(id);
     }
     
-    public Product updateQuantity(Long id, Integer quantity) {
-        Product product = productRepository.findById(id).orElseThrow();
-        product.setQuantity(quantity);
-        return productRepository.save(product);
-    }
+    // Quantity is now managed through ProductVariant entities
     
     public List<String> getAllCategories() {
         return productRepository.findDistinctCategories();

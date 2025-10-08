@@ -14,7 +14,7 @@
                 { "name": "DATABASE_URL", "value": "jdbc:postgresql://ecommerce-lambda-db.c3wm66u2mamb.ap-south-1.rds.amazonaws.com:5432/ecommerce_db" },
                 { "name": "DB_USERNAME", "value": "ecommerceadmin" },
                 { "name": "DB_PASSWORD", "value": "MyPassword123" },
-                { "name": "JWT_SECRET", "value": "nOP8o/upJIbsTFQGs/T+9Q3L2SAFOFbGZn6QgISuc9A=" },
+                { "name": "JWT_SECRET", "value": "4Fv+QeJzzQuwZCbiNA5L7IsHb3zwpRmqvfxHdiGm2QY=" },
                 { "name": "SPRING_PROFILES_ACTIVE", "value": "production" }
             ],
             "logConfiguration": {

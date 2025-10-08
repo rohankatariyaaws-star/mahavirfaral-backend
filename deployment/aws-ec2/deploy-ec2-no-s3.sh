@@ -1,59 +1,41 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Simple, cost-optimized EC2 deploy script for backend + frontend on a single t2.micro (Free Tier eligible)
-# Usage: copy .env.example to .env, edit, then run: ./deploy-ec2.sh
-
+# S3-free EC2 deploy script - everything embedded in user-data
 ROOT_DIR=$(cd "$(dirname "$0")/../../" && pwd)
 source "$(dirname "$0")/.env" 2>/dev/null || true
 
 if [ -z "${APP_NAME:-}" ]; then
-  echo "Please create deployment/aws-ec2/.env from .env.example and set APP_NAME, AWS_REGION"
+  echo "Please create .env from .env.example"
   exit 1
 fi
 
 source "$(dirname "$0")/../aws-ecs/utils.sh" 2>/dev/null || true
 
-S3_BUCKET=${S3_BUCKET_PREFIX:-"$APP_NAME-ec2-artifacts-$AWS_REGION-$(date +%s)"}
-
-log_info "Using bucket: $S3_BUCKET"
-
-function ensure_bucket() {
-  if ! aws s3api head-bucket --bucket "$S3_BUCKET" 2>/dev/null; then
-    log_info "Creating S3 bucket $S3_BUCKET"
-    aws s3api create-bucket --bucket "$S3_BUCKET" --create-bucket-configuration LocationConstraint=$AWS_REGION
-  else
-    log_info "Bucket exists"
-  fi
-}
-
-function upload_artifacts() {
-  log_info "Packaging backend and frontend artifacts"
-  # Backend: assume backend/target/*.jar exists
+function build_artifacts() {
+  log_info "Building artifacts locally"
+  
+  # Build backend
   BACKEND_JAR=$(ls $ROOT_DIR/backend/target/*.jar 2>/dev/null | head -n1 || true)
   if [ -z "$BACKEND_JAR" ]; then
-    log_info "Backend jar not found, attempting mvn package"
     (cd $ROOT_DIR/backend && mvn clean package -DskipTests)
     BACKEND_JAR=$(ls $ROOT_DIR/backend/target/*.jar | head -n1)
   fi
-
+  
+  # Build frontend
   FRONTEND_BUILD_DIR=$ROOT_DIR/frontend/build
   if [ ! -d "$FRONTEND_BUILD_DIR" ]; then
-    log_info "Building frontend"
     (cd $ROOT_DIR/frontend && npm install && npm run build)
   fi
-
-  aws s3 cp "$BACKEND_JAR" "s3://$S3_BUCKET/" --region $AWS_REGION
-  aws s3 sync "$FRONTEND_BUILD_DIR" "s3://$S3_BUCKET/frontend/" --region $AWS_REGION
-
-  BACKEND_KEY=$(basename "$BACKEND_JAR")
-  FRONTEND_PREFIX=frontend/
-
-  BACKEND_URL=$(aws s3 presign "s3://$S3_BUCKET/$BACKEND_KEY" --region $AWS_REGION --expires-in ${PRESIGN_EXPIRY:-43200})
-  FRONTEND_URL=$(aws s3 presign "s3://$S3_BUCKET/$FRONTEND_PREFIX" --region $AWS_REGION --expires-in ${PRESIGN_EXPIRY:-43200}) || true
-
-  echo "$BACKEND_URL" > /tmp/ecommerce-backend-url || true
-  log_info "Backend presigned URL: $BACKEND_URL"
+  
+  # Base64 encode JAR for embedding
+  JAR_BASE64=$(base64 -w 0 "$BACKEND_JAR")
+  
+  # Create frontend tar.gz and base64 encode
+  (cd "$FRONTEND_BUILD_DIR" && tar czf - .) | base64 -w 0 > /tmp/frontend.tar.gz.b64
+  FRONTEND_BASE64=$(cat /tmp/frontend.tar.gz.b64)
+  
+  log_info "Artifacts prepared for embedding"
 }
 
 function ensure_keypair() {
@@ -61,8 +43,6 @@ function ensure_keypair() {
     log_info "Creating keypair $KEY_NAME"
     aws ec2 create-key-pair --key-name "$KEY_NAME" --query 'KeyMaterial' --output text > "$KEY_NAME.pem"
     chmod 600 "$KEY_NAME.pem"
-  else
-    log_info "Keypair exists: $KEY_NAME"
   fi
 }
 
@@ -74,46 +54,68 @@ function ensure_sg() {
     aws ec2 authorize-security-group-ingress --group-id $SG_ID --protocol tcp --port 22 --cidr 0.0.0.0/0 --region $AWS_REGION
     aws ec2 authorize-security-group-ingress --group-id $SG_ID --protocol tcp --port 80 --cidr 0.0.0.0/0 --region $AWS_REGION
     aws ec2 authorize-security-group-ingress --group-id $SG_ID --protocol tcp --port 443 --cidr 0.0.0.0/0 --region $AWS_REGION
-    aws ec2 authorize-security-group-ingress --group-id $SG_ID --protocol tcp --port 8080 --cidr 0.0.0.0/0 --region $AWS_REGION
-  else
-    log_info "Using existing security group $SG_ID"
   fi
 }
 
 function launch_instance() {
-  log_info "Launching EC2 instance"
-  
-  # Upload nginx config to S3
-  aws s3 cp "$(dirname "$0")/nginx-https.conf" "s3://$S3_BUCKET/" --region $AWS_REGION
+  log_info "Launching EC2 instance with embedded artifacts"
   
   USER_DATA=$(cat <<EOF
 #!/bin/bash
 set -e
 yum update -y
-
-# Install Java and nginx
 amazon-linux-extras install -y java-openjdk11
 yum install -y nginx openssl
-systemctl enable nginx
 
-# Create self-signed SSL certificate
+# Create SSL certificate
 mkdir -p /etc/ssl/private
 openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
   -keyout /etc/ssl/private/selfsigned.key \
   -out /etc/ssl/certs/selfsigned.crt \
   -subj "/C=US/ST=State/L=City/O=Organization/CN=localhost"
 
-# Download and configure nginx
-aws s3 cp s3://$S3_BUCKET/nginx-https.conf /etc/nginx/conf.d/default.conf --region $AWS_REGION
-rm -f /etc/nginx/conf.d/default.conf.bak
+# Create nginx config
+cat > /etc/nginx/conf.d/default.conf <<'NGINX_EOF'
+server {
+    listen 80;
+    server_name _;
+    return 301 https://\$host\$request_uri;
+}
+
+server {
+    listen 443 ssl http2;
+    server_name _;
+    
+    ssl_certificate /etc/ssl/certs/selfsigned.crt;
+    ssl_private_key /etc/ssl/private/selfsigned.key;
+    ssl_protocols TLSv1.2 TLSv1.3;
+    
+    root /usr/share/nginx/html;
+    index index.html;
+    
+    location / {
+        try_files \$uri \$uri/ /index.html;
+    }
+    
+    location /api/ {
+        proxy_pass http://localhost:8080/;
+        proxy_set_header Host \$host;
+        proxy_set_header X-Real-IP \$remote_addr;
+        proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto \$scheme;
+    }
+}
+NGINX_EOF
+
+systemctl enable nginx
 systemctl start nginx
 
-# Download and start backend
-curl -o /home/ec2-user/app.jar "$BACKEND_URL" || exit 1
+# Decode and install backend JAR
+echo "$JAR_BASE64" | base64 -d > /home/ec2-user/app.jar
 chown ec2-user:ec2-user /home/ec2-user/app.jar
 
-# Create systemd service for backend
-cat > /etc/systemd/system/ecommerce-backend.service <<EOL
+# Create backend service
+cat > /etc/systemd/system/ecommerce-backend.service <<'SERVICE_EOF'
 [Unit]
 Description=Ecommerce Backend
 After=network.target
@@ -128,15 +130,15 @@ RestartSec=10
 
 [Install]
 WantedBy=multi-user.target
-EOL
+SERVICE_EOF
 
 systemctl daemon-reload
 systemctl enable ecommerce-backend
 systemctl start ecommerce-backend
 
-# Serve frontend via nginx
+# Decode and install frontend
 mkdir -p /usr/share/nginx/html
-aws s3 sync s3://$S3_BUCKET/frontend/ /usr/share/nginx/html/ --region $AWS_REGION || exit 1
+echo "$FRONTEND_BASE64" | base64 -d | tar xz -C /usr/share/nginx/html/
 systemctl restart nginx
 
 EOF
@@ -147,16 +149,12 @@ EOF
   aws ec2 wait instance-running --instance-ids $INSTANCE_ID --region $AWS_REGION
   PUBLIC_IP=$(aws ec2 describe-instances --instance-ids $INSTANCE_ID --region $AWS_REGION --query 'Reservations[0].Instances[0].PublicIpAddress' --output text)
   log_info "Instance public IP: $PUBLIC_IP"
-  echo "https://$PUBLIC_IP/" > /tmp/ecommerce-ec2-url
-  # Provide a free DNS using nip.io
-  log_info "You can access the site at: https://$PUBLIC_IP.nip.io/ (HTTPS with self-signed cert)"
-  log_info "Backend API available at: https://$PUBLIC_IP.nip.io/api/"
+  log_info "Access at: https://$PUBLIC_IP.nip.io/"
 }
 
-ensure_bucket
-upload_artifacts
+build_artifacts
 ensure_keypair
 ensure_sg
 launch_instance
 
-log_info "EC2 deploy complete"
+log_info "S3-free EC2 deploy complete"

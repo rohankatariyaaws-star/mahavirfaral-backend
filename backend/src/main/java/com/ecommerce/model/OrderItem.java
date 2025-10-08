@@ -33,15 +33,15 @@ public class OrderItem {
     private Integer quantity;
     private BigDecimal totalPrice;
 
-    public OrderItem(Product product, Integer quantity) {
+    public OrderItem(Product product, ProductVariant variant, Integer quantity) {
         this.productId = product.getId();
         this.productName = product.getName();
         this.productDescription = product.getDescription();
         this.productImageUrl = product.getImageUrl();
-        this.productSize = product.getSize();
+        this.productSize = variant != null ? variant.getSize() : "";
         this.productCategory = product.getCategory();
-        this.unitPrice = product.getPrice();
+        this.unitPrice = variant != null ? variant.getPrice() : BigDecimal.ZERO;
         this.quantity = quantity;
-        this.totalPrice = product.getPrice().multiply(BigDecimal.valueOf(quantity)).setScale(2, java.math.RoundingMode.HALF_UP);
+        this.totalPrice = this.unitPrice.multiply(BigDecimal.valueOf(quantity)).setScale(2, java.math.RoundingMode.HALF_UP);
     }
 }

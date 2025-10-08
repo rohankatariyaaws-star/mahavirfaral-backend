@@ -105,3 +105,47 @@ netlify_set_env() {
         fi
     fi
 }
+
+
+trigger_initial_setup() {
+    echo "🚀 Setting up initial Netlify environment variable..."
+    
+    # Get current ECS IP and set it in Netlify immediately
+    TASK_ARN=$(aws ecs list-tasks --cluster $CLUSTER_NAME --service-name $SERVICE_NAME --region $AWS_REGION --query 'taskArns[0]' --output text 2>/dev/null || echo "")
+    
+    if [ -n "$TASK_ARN" ] && [ "$TASK_ARN" != "None" ]; then
+        # Trigger Lambda manually for initial setup
+        echo "Triggering Lambda for initial IP setup..."
+        
+        # Create test event to trigger Lambda
+        cat > test-event.json << EOF
+{
+  "detail": {
+    "clusterArn": "arn:aws:ecs:$AWS_REGION:$(aws sts get-caller-identity --query Account --output text):cluster/$CLUSTER_NAME",
+    "taskArn": "$TASK_ARN",
+    "lastStatus": "RUNNING"
+  }
+}
+EOF
+        
+        # Invoke Lambda function
+        aws lambda invoke \
+            --function-name $APP_NAME-ip-updater \
+            --payload fileb://test-event.json \
+            --region $AWS_REGION \
+            lambda-response.json
+        
+        # Show result
+        if [ -f "lambda-response.json" ]; then
+            echo "Lambda response:"
+            cat lambda-response.json
+            rm -f lambda-response.json
+        fi
+        
+        rm -f test-event.json
+        
+        echo -e "✅ Initial Netlify environment variable set"
+    else
+        echo -e "⚠️  No running ECS tasks found for initial setup${NC}"
+    fi
+}

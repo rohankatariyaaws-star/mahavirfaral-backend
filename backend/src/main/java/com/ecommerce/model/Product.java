@@ -25,13 +25,7 @@ public class Product {
     
     private String description;
     
-    private BigDecimal price;
-    
-    private Integer quantity;
-    
     private String imageUrl;
-    
-    private String size;
     
     private String category;
     
@@ -43,13 +37,10 @@ public class Product {
     @ToString.Exclude
     private List<CartItem> cartItems = new ArrayList<>();
     
-    public Product(String name, String description, BigDecimal price, Integer quantity, String imageUrl, String size, String category) {
+    public Product(String name, String description, String imageUrl, String category) {
         this.name = name;
         this.description = description;
-        this.price = price;
-        this.quantity = quantity;
         this.imageUrl = imageUrl;
-        this.size = size;
         this.category = category;
     }
     

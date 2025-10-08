@@ -39,11 +39,11 @@ public class DataLoader implements CommandLineRunner {
         // Create sample products if none exist
         if (productRepository.count() == 0) {
             Product[] sampleProducts = {
-                new Product("Organic Rice", "Premium quality organic basmati rice", new BigDecimal("12.99"), 50, "https://images.unsplash.com/photo-1586201375761-83865001e31c?w=400", "1kg", "Food"),
-                new Product("Fresh Milk", "Farm fresh whole milk", new BigDecimal("3.49"), 30, "https://images.unsplash.com/photo-1550583724-b2692b85b150?w=400", "1L", "Dairy"),
-                new Product("Olive Oil", "Extra virgin olive oil", new BigDecimal("8.99"), 25, "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=400", "500ml", "Food"),
-                new Product("Whole Wheat Bread", "Freshly baked whole wheat bread", new BigDecimal("2.99"), 40, "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=400", "400g", "Bakery"),
-                new Product("Green Tea", "Organic green tea bags", new BigDecimal("5.99"), 60, "https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=400", "100 bags", "Beverages")
+                new Product("Organic Rice", "Premium quality organic basmati rice", "https://images.unsplash.com/photo-1586201375761-83865001e31c?w=400", "Food"),
+                new Product("Fresh Milk", "Farm fresh whole milk", "https://images.unsplash.com/photo-1550583724-b2692b85b150?w=400", "Dairy"),
+                new Product("Olive Oil", "Extra virgin olive oil", "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=400", "Food"),
+                new Product("Whole Wheat Bread", "Freshly baked whole wheat bread", "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=400", "Bakery"),
+                new Product("Green Tea", "Organic green tea bags", "https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=400", "Beverages")
             };
             
             for (Product product : sampleProducts) {

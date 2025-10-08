@@ -42,6 +42,27 @@ public class ProductController {
             .map(ProductDTO::fromProduct)
             .collect(Collectors.toList());
     }
+    
+    @GetMapping("/debug")
+    public ResponseEntity<String> debugProducts() {
+        List<Product> allProducts = productService.getAllProducts();
+        List<Product> availableProducts = productService.getAvailableProducts();
+        
+        StringBuilder debug = new StringBuilder();
+        debug.append("Total products: ").append(allProducts.size()).append("\n");
+        debug.append("Available products: ").append(availableProducts.size()).append("\n");
+        
+        if (!allProducts.isEmpty()) {
+            Product first = allProducts.get(0);
+            debug.append("First product variants: ").append(first.getVariants() != null ? first.getVariants().size() : 0).append("\n");
+            if (first.getVariants() != null && !first.getVariants().isEmpty()) {
+                ProductVariant firstVariant = first.getVariants().get(0);
+                debug.append("First variant quantity: ").append(firstVariant.getQuantity()).append("\n");
+            }
+        }
+        
+        return ResponseEntity.ok(debug.toString());
+    }
 
     @GetMapping("/available/paged")
     public ResponseEntity<Page<ProductDTO>> getAvailableProductsPaged(Pageable pageable) {
@@ -99,10 +120,6 @@ public class ProductController {
                     .map(ProductVariantDTO::fromProductVariant)
                     .collect(Collectors.toList());
             dto.setSizes(variantDTOs);
-        } else {
-            dto.setPrice(product.getPrice());
-            dto.setQuantity(product.getQuantity());
-            dto.setSize(product.getSize());
         }
         return dto;
     }
@@ -153,7 +170,7 @@ public class ProductController {
         product.setImageUrl(dto.getImageUrl());
         product.setCategory(dto.getCategory());
 
-        // Handle multiple sizes
+        // Handle variants
         if (dto.getSizes() != null && !dto.getSizes().isEmpty()) {
             List<ProductVariant> variants = dto.getSizes().stream()
                     .map(sizeDTO -> {
@@ -169,11 +186,6 @@ public class ProductController {
                     })
                     .collect(Collectors.toList());
             product.setVariants(variants);
-        } else {
-            // Backward compatibility for single size/price/quantity
-            product.setPrice(dto.getPrice());
-            product.setQuantity(dto.getQuantity());
-            product.setSize(dto.getSize());
         }
 
         return product;

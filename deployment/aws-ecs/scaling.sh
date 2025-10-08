@@ -14,11 +14,17 @@ create_scheduled_scaling() {
         sleep 5
     fi
 
+    log_info "Manually setting desired capacity to 1 to start the service"
+    run_aws_cli ecs update-service \
+        --cluster "$CLUSTER_NAME" \
+        --service "$SERVICE_NAME" \
+        --desired-count 1 \
+        --region "$AWS_REGION"
     run_aws_cli application-autoscaling register-scalable-target --service-namespace ecs --resource-id service/$CLUSTER_NAME/$SERVICE_NAME --scalable-dimension ecs:service:DesiredCount --min-capacity 0 --max-capacity 1 --region "$AWS_REGION" 2>/dev/null || true
 
-    run_aws_cli application-autoscaling put-scheduled-action --service-namespace ecs --resource-id service/$CLUSTER_NAME/$SERVICE_NAME --scalable-dimension ecs:service:DesiredCount --scheduled-action-name "$APP_NAME-scale-up" --schedule "cron(30 0 * * ? *)" --scalable-target-action MinCapacity=1,MaxCapacity=1 --region "$AWS_REGION" 2>/dev/null || true
+    run_aws_cli application-autoscaling put-scheduled-action --service-namespace ecs --resource-id service/$CLUSTER_NAME/$SERVICE_NAME --scalable-dimension ecs:service:DesiredCount --scheduled-action-name "$APP_NAME-scale-up" --schedule "cron(0 15 20 * * ?)" --scalable-target-action MinCapacity=1,MaxCapacity=1 --region "$AWS_REGION" 2>/dev/null || true
 
-    run_aws_cli application-autoscaling put-scheduled-action --service-namespace ecs --resource-id service/$CLUSTER_NAME/$SERVICE_NAME --scalable-dimension ecs:service:DesiredCount --scheduled-action-name "$APP_NAME-scale-down" --schedule "cron(30 18 * * ? *)" --scalable-target-action MinCapacity=0,MaxCapacity=0 --region "$AWS_REGION" 2>/dev/null || true
+    run_aws_cli application-autoscaling put-scheduled-action --service-namespace ecs --resource-id service/$CLUSTER_NAME/$SERVICE_NAME --scalable-dimension ecs:service:DesiredCount --scheduled-action-name "$APP_NAME-scale-down" --schedule "cron(30 17 * * ? *)" --scalable-target-action MinCapacity=0,MaxCapacity=0 --region "$AWS_REGION" 2>/dev/null || true
 
     log_info "Scheduled scaling created (6 AM - 12 AM IST)"
 }

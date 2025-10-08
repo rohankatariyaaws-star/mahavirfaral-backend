@@ -5,6 +5,7 @@ import com.ecommerce.dto.OrderResponse;
 import com.ecommerce.model.Order;
 import com.ecommerce.model.User;
 import com.ecommerce.service.OrderService;
+import com.ecommerce.service.ScheduledTaskService;
 import com.ecommerce.util.JWTTokenDetails;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +24,7 @@ import java.util.stream.Collectors;
 @PreAuthorize("hasRole('USER') or hasRole('ADMIN') or hasRole('SUPERVISOR')")
 public class OrderController {
     private final OrderService orderService;
+    private final ScheduledTaskService scheduledTaskService;
     private final JWTTokenDetails jwtTokenDetails;
 
     @GetMapping
@@ -105,6 +107,13 @@ public class OrderController {
     @Data
     public static class StatusUpdateRequest {
         private String status;
+    }
+
+    @PostMapping("/admin/cleanup-cancelled")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<String> manualCleanupCancelledOrders() {
+        int deletedCount = scheduledTaskService.manualCleanupCancelledOrders();
+        return ResponseEntity.ok("Deleted " + deletedCount + " cancelled orders older than 2 days");
     }
 
     @Data

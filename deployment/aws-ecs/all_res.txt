@@ -1,0 +1,951 @@
+{
+    "Resources": [
+        {
+            "Arn": "arn:aws:elasticloadbalancing:ap-south-1:556173312286:targetgroup/mahavirfaral-trg/cd79cd8eb4d14f4d",
+            "LastReportedAt": "2025-10-05T20:09:05+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "elasticloadbalancing:targetgroup",
+            "Service": "elasticloadbalancing"
+        },
+        {
+            "Arn": "arn:aws:ecs:ap-south-1:556173312286:task-definition/ecommerce-fargate-task:43",
+            "LastReportedAt": "2025-10-05T19:27:01+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "ecs:task-definition",
+            "Service": "ecs"
+        },
+        {
+            "Arn": "arn:aws:ec2:ap-south-1:556173312286:network-interface/eni-086bc1115ea494ad4",
+            "LastReportedAt": "2025-10-05T20:18:50+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "ec2:network-interface",
+            "Service": "ec2"
+        },
+        {
+            "Arn": "arn:aws:ecs:ap-south-1:556173312286:task-definition/ecommerce-fargate-task:36",
+            "LastReportedAt": "2025-10-05T09:29:04+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "ecs:task-definition",
+            "Service": "ecs"
+        },
+        {
+            "Arn": "arn:aws:ecs:ap-south-1:556173312286:task-definition/ecommerce-fargate-task:27",
+            "LastReportedAt": "2025-10-05T05:55:58+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "ecs:task-definition",
+            "Service": "ecs"
+        },
+        {
+            "Arn": "arn:aws:ssm:ap-south-1:556173312286:parameter/ecommerce-db-endpoint",
+            "LastReportedAt": "2025-10-04T19:21:20+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "ssm:parameter",
+            "Service": "ssm"
+        },
+        {
+            "Arn": "arn:aws:ec2:ap-south-1:556173312286:vpc/vpc-0c205a86ce36c34e1",
+            "LastReportedAt": "2025-10-05T05:05:36+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "ec2:vpc",
+            "Service": "ec2"
+        },
+        {
+            "Arn": "arn:aws:events:ap-south-1:556173312286:rule/ecommerce-fargate-task-state-rule",
+            "LastReportedAt": "2025-10-05T19:27:56+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [
+                {
+                    "Data": [],
+                    "LastReportedAt": "2025-10-04T16:18:22+00:00",
+                    "Name": "tags"
+                }
+            ],
+            "Region": "ap-south-1",
+            "ResourceType": "events:rule",
+            "Service": "events"
+        },
+        {
+            "Arn": "arn:aws:ecr:ap-south-1:556173312286:repository/ecommerce-fargate",
+            "LastReportedAt": "2025-10-04T16:54:38+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "ecr:repository",
+            "Service": "ecr"
+        },
+        {
+            "Arn": "arn:aws:rds:ap-south-1:556173312286:auto-backup:ab-ht75srdtdwwqppk7h4avh7znedbsnhjxn2ykvgkjcwmy6qgjizszuv7z62kplsny",
+            "LastReportedAt": "2025-10-04T18:18:40+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "rds:auto-backup",
+            "Service": "rds"
+        },
+        {
+            "Arn": "arn:aws:ecs:ap-south-1:556173312286:task-definition/ecommerce-fargate-task:9",
+            "LastReportedAt": "2025-10-04T07:57:26+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "ecs:task-definition",
+            "Service": "ecs"
+        },
+        {
+            "Arn": "arn:aws:ecs:ap-south-1:556173312286:task-definition/ecommerce-fargate-task:13",
+            "LastReportedAt": "2025-10-04T14:26:20+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "ecs:task-definition",
+            "Service": "ecs"
+        },
+        {
+            "Arn": "arn:aws:ecs:ap-south-1:556173312286:task-definition/ecommerce-fargate-task:16",
+            "LastReportedAt": "2025-10-04T15:25:28+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "ecs:task-definition",
+            "Service": "ecs"
+        },
+        {
+            "Arn": "arn:aws:ecs:ap-south-1:556173312286:task-definition/ecommerce-fargate-task:42",
+            "LastReportedAt": "2025-10-05T19:12:00+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "ecs:task-definition",
+            "Service": "ecs"
+        },
+        {
+            "Arn": "arn:aws:ec2:ap-south-1:556173312286:security-group-rule/sgr-0782f87ca151f1ace",
+            "LastReportedAt": "2025-10-05T05:36:26+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "ec2:security-group-rule",
+            "Service": "ec2"
+        },
+        {
+            "Arn": "arn:aws:ecs:ap-south-1:556173312286:task-definition/ecommerce-fargate-task:33",
+            "LastReportedAt": "2025-10-05T07:49:37+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "ecs:task-definition",
+            "Service": "ecs"
+        },
+        {
+            "Arn": "arn:aws:ecs:ap-south-1:556173312286:task-definition/ecommerce-fargate-task:19",
+            "LastReportedAt": "2025-10-04T15:48:21+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "ecs:task-definition",
+            "Service": "ecs"
+        },
+        {
+            "Arn": "arn:aws:ec2:ap-south-1:556173312286:dhcp-options/dopt-048e9d21a5337389a",
+            "LastReportedAt": "2025-10-04T15:38:38+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "ec2:dhcp-options",
+            "Service": "ec2"
+        },
+        {
+            "Arn": "arn:aws:ecs:ap-south-1:556173312286:task-definition/ecommerce-fargate-task:37",
+            "LastReportedAt": "2025-10-05T09:55:34+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "ecs:task-definition",
+            "Service": "ecs"
+        },
+        {
+            "Arn": "arn:aws:rds:ap-south-1:556173312286:snapshot:rds:ecommerce-fargate-db-2025-10-03-18-03",
+            "LastReportedAt": "2025-10-04T07:57:27+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "rds:snapshot",
+            "Service": "rds"
+        },
+        {
+            "Arn": "arn:aws:ecs:ap-south-1:556173312286:task-definition/ecommerce-fargate-task:25",
+            "LastReportedAt": "2025-10-04T16:15:55+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "ecs:task-definition",
+            "Service": "ecs"
+        },
+        {
+            "Arn": "arn:aws:ec2:ap-south-1:556173312286:network-acl/acl-0e4dd4d16c169de1b",
+            "LastReportedAt": "2025-10-04T07:57:25+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "ec2:network-acl",
+            "Service": "ec2"
+        },
+        {
+            "Arn": "arn:aws:ec2:ap-south-1:556173312286:network-interface/eni-0f918f0af048d0060",
+            "LastReportedAt": "2025-10-05T20:29:26+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "ec2:network-interface",
+            "Service": "ec2"
+        },
+        {
+            "Arn": "arn:aws:lambda:ap-south-1:556173312286:function:ecommerce-fargate-ip-updater",
+            "LastReportedAt": "2025-10-05T05:17:25+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "lambda:function",
+            "Service": "lambda"
+        },
+        {
+            "Arn": "arn:aws:athena:ap-south-1:556173312286:workgroup/primary",
+            "LastReportedAt": "2025-10-04T22:21:02+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "athena:workgroup",
+            "Service": "athena"
+        },
+        {
+            "Arn": "arn:aws:ec2:ap-south-1:556173312286:security-group-rule/sgr-0f8a7570ba9006247",
+            "LastReportedAt": "2025-10-05T05:36:26+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "ec2:security-group-rule",
+            "Service": "ec2"
+        },
+        {
+            "Arn": "arn:aws:ecs:ap-south-1:556173312286:task-definition/ecommerce-fargate-task:24",
+            "LastReportedAt": "2025-10-04T16:07:18+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "ecs:task-definition",
+            "Service": "ecs"
+        },
+        {
+            "Arn": "arn:aws:ecs:ap-south-1:556173312286:task-definition/ecommerce-fargate-task-debug:1",
+            "LastReportedAt": "2025-10-04T07:57:26+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "ecs:task-definition",
+            "Service": "ecs"
+        },
+        {
+            "Arn": "arn:aws:logs:ap-south-1:556173312286:log-group:/aws/lambda/ecommerce-fargate-ip-updater",
+            "LastReportedAt": "2025-10-04T21:56:33+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "logs:log-group",
+            "Service": "logs"
+        },
+        {
+            "Arn": "arn:aws:ecs:ap-south-1:556173312286:task-definition/ecommerce-fargate-task:26",
+            "LastReportedAt": "2025-10-04T17:47:19+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "ecs:task-definition",
+            "Service": "ecs"
+        },
+        {
+            "Arn": "arn:aws:ecs:ap-south-1:556173312286:task-definition/ecommerce-fargate-task:29",
+            "LastReportedAt": "2025-10-05T06:53:44+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "ecs:task-definition",
+            "Service": "ecs"
+        },
+        {
+            "Arn": "arn:aws:ecs:ap-south-1:556173312286:task-definition/ecommerce-fargate-task:15",
+            "LastReportedAt": "2025-10-04T15:16:28+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "ecs:task-definition",
+            "Service": "ecs"
+        },
+        {
+            "Arn": "arn:aws:kms:ap-south-1:556173312286:key/3c435afd-da0a-4a89-9d39-ae9dfd4c23bb",
+            "LastReportedAt": "2025-10-05T03:11:01+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "kms:key",
+            "Service": "kms"
+        },
+        {
+            "Arn": "arn:aws:ec2:ap-south-1:556173312286:subnet/subnet-0d4dfe962e026e62f",
+            "LastReportedAt": "2025-10-04T14:04:25+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "ec2:subnet",
+            "Service": "ec2"
+        },
+        {
+            "Arn": "arn:aws:cloudtrail:ap-south-1:556173312286:channel/aws-service-channel/resource-explorer-2/0337c5f5-5923-4420-a82b-f44c08c6c14c",
+            "LastReportedAt": "2025-10-05T05:29:08+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "cloudtrail:channel",
+            "Service": "cloudtrail"
+        },
+        {
+            "Arn": "arn:aws:ec2:ap-south-1:556173312286:security-group/sg-0e1aa112e7a94ebf6",
+            "LastReportedAt": "2025-10-05T03:15:35+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "ec2:security-group",
+            "Service": "ec2"
+        },
+        {
+            "Arn": "arn:aws:ec2:ap-south-1:556173312286:network-interface/eni-06efe0523d4ccef18",
+            "LastReportedAt": "2025-10-04T07:57:25+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "ec2:network-interface",
+            "Service": "ec2"
+        },
+        {
+            "Arn": "arn:aws:ecs:ap-south-1:556173312286:task-definition/ecommerce-fargate-task:41",
+            "LastReportedAt": "2025-10-05T19:02:08+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "ecs:task-definition",
+            "Service": "ecs"
+        },
+        {
+            "Arn": "arn:aws:logs:ap-south-1:556173312286:log-group:ecommerce-fargate-debug",
+            "LastReportedAt": "2025-10-04T21:56:33+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "logs:log-group",
+            "Service": "logs"
+        },
+        {
+            "Arn": "arn:aws:ec2:ap-south-1:556173312286:security-group-rule/sgr-0d0aba2d56d1cf524",
+            "LastReportedAt": "2025-10-04T07:57:26+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "ec2:security-group-rule",
+            "Service": "ec2"
+        },
+        {
+            "Arn": "arn:aws:rds:ap-south-1:556173312286:db:ecommerce-fargate-db",
+            "LastReportedAt": "2025-10-05T07:03:27+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "rds:db",
+            "Service": "rds"
+        },
+        {
+            "Arn": "arn:aws:ec2:ap-south-1:556173312286:network-interface/eni-0bf075598a45bdcf8",
+            "LastReportedAt": "2025-10-04T07:57:25+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "ec2:network-interface",
+            "Service": "ec2"
+        },
+        {
+            "Arn": "arn:aws:ssm:ap-south-1:556173312286:parameter/ecommerce-db-password",
+            "LastReportedAt": "2025-10-04T19:21:20+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "ssm:parameter",
+            "Service": "ssm"
+        },
+        {
+            "Arn": "arn:aws:athena:ap-south-1:556173312286:datacatalog/AwsDataCatalog",
+            "LastReportedAt": "2025-10-04T14:43:15+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "athena:datacatalog",
+            "Service": "athena"
+        },
+        {
+            "Arn": "arn:aws:ecs:ap-south-1:556173312286:task-definition/ecommerce-fargate-task:31",
+            "LastReportedAt": "2025-10-05T07:13:24+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "ecs:task-definition",
+            "Service": "ecs"
+        },
+        {
+            "Arn": "arn:aws:ecs:ap-south-1:556173312286:task-definition/ecommerce-fargate-task:2",
+            "LastReportedAt": "2025-10-04T07:57:26+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "ecs:task-definition",
+            "Service": "ecs"
+        },
+        {
+            "Arn": "arn:aws:ecs:ap-south-1:556173312286:task-definition/ecommerce-fargate-task:17",
+            "LastReportedAt": "2025-10-04T15:37:56+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "ecs:task-definition",
+            "Service": "ecs"
+        },
+        {
+            "Arn": "arn:aws:elasticloadbalancing:ap-south-1:556173312286:loadbalancer/app/mahavirfaral/9845d867392613da",
+            "LastReportedAt": "2025-10-05T20:18:29+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "elasticloadbalancing:loadbalancer/app",
+            "Service": "elasticloadbalancing"
+        },
+        {
+            "Arn": "arn:aws:ec2:ap-south-1:556173312286:network-interface/eni-029a5ced6b6ff0cf0",
+            "LastReportedAt": "2025-10-05T19:27:43+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "ec2:network-interface",
+            "Service": "ec2"
+        },
+        {
+            "Arn": "arn:aws:ecs:ap-south-1:556173312286:task-definition/ecommerce-fargate-task:1",
+            "LastReportedAt": "2025-10-04T07:57:26+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "ecs:task-definition",
+            "Service": "ecs"
+        },
+        {
+            "Arn": "arn:aws:ec2:ap-south-1:556173312286:security-group-rule/sgr-0cacfcf6a2cf83482",
+            "LastReportedAt": "2025-10-05T05:36:26+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "ec2:security-group-rule",
+            "Service": "ec2"
+        },
+        {
+            "Arn": "arn:aws:ec2:ap-south-1:556173312286:subnet/subnet-086db1037d2ebd0e6",
+            "LastReportedAt": "2025-10-04T14:04:25+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "ec2:subnet",
+            "Service": "ec2"
+        },
+        {
+            "Arn": "arn:aws:ssm:ap-south-1:556173312286:parameter/ecommerce-api-url",
+            "LastReportedAt": "2025-10-05T20:29:52+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "ssm:parameter",
+            "Service": "ssm"
+        },
+        {
+            "Arn": "arn:aws:ecs:ap-south-1:556173312286:cluster/ecommerce-fargate-cluster",
+            "LastReportedAt": "2025-10-05T19:26:47+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "ecs:cluster",
+            "Service": "ecs"
+        },
+        {
+            "Arn": "arn:aws:resource-explorer-2:ap-south-1:556173312286:index/2c908869-c093-4d06-a255-c298d1f3ea4e",
+            "LastReportedAt": "2025-10-04T17:18:35+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "resource-explorer-2:index",
+            "Service": "resource-explorer-2"
+        },
+        {
+            "Arn": "arn:aws:ec2:ap-south-1:556173312286:security-group-rule/sgr-03d379469caee7413",
+            "LastReportedAt": "2025-10-04T07:57:26+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "ec2:security-group-rule",
+            "Service": "ec2"
+        },
+        {
+            "Arn": "arn:aws:ecs:ap-south-1:556173312286:task-definition/ecommerce-fargate-task:21",
+            "LastReportedAt": "2025-10-04T15:57:29+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "ecs:task-definition",
+            "Service": "ecs"
+        },
+        {
+            "Arn": "arn:aws:ecs:ap-south-1:556173312286:task-definition/ecommerce-fargate-task:3",
+            "LastReportedAt": "2025-10-04T07:57:26+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "ecs:task-definition",
+            "Service": "ecs"
+        },
+        {
+            "Arn": "arn:aws:ecs:ap-south-1:556173312286:task-definition/ecommerce-fargate-task:28",
+            "LastReportedAt": "2025-10-05T06:22:18+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "ecs:task-definition",
+            "Service": "ecs"
+        },
+        {
+            "Arn": "arn:aws:ecs:ap-south-1:556173312286:task-definition/ecommerce-fargate-task:32",
+            "LastReportedAt": "2025-10-05T07:22:50+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "ecs:task-definition",
+            "Service": "ecs"
+        },
+        {
+            "Arn": "arn:aws:ecs:ap-south-1:556173312286:task-definition/ecommerce-fargate-task:35",
+            "LastReportedAt": "2025-10-05T09:18:14+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "ecs:task-definition",
+            "Service": "ecs"
+        },
+        {
+            "Arn": "arn:aws:ec2:ap-south-1:556173312286:security-group-rule/sgr-00e704e8568405bd5",
+            "LastReportedAt": "2025-10-05T05:36:26+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "ec2:security-group-rule",
+            "Service": "ec2"
+        },
+        {
+            "Arn": "arn:aws:rds:ap-south-1:556173312286:subgrp:ecommerce-fargate-subnet-group",
+            "LastReportedAt": "2025-10-04T17:06:11+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "rds:subgrp",
+            "Service": "rds"
+        },
+        {
+            "Arn": "arn:aws:kms:ap-south-1:556173312286:key/77dc9277-f181-436f-b679-92d4f19cfab2",
+            "LastReportedAt": "2025-10-05T03:11:01+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "kms:key",
+            "Service": "kms"
+        },
+        {
+            "Arn": "arn:aws:ecs:ap-south-1:556173312286:task-definition/ecommerce-fargate-test:1",
+            "LastReportedAt": "2025-10-04T10:06:36+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "ecs:task-definition",
+            "Service": "ecs"
+        },
+        {
+            "Arn": "arn:aws:ecs:ap-south-1:556173312286:task-definition/ecommerce-fargate-task:34",
+            "LastReportedAt": "2025-10-05T08:12:48+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "ecs:task-definition",
+            "Service": "ecs"
+        },
+        {
+            "Arn": "arn:aws:rds:ap-south-1:556173312286:snapshot:rds:ecommerce-fargate-db-2025-10-03-22-08",
+            "LastReportedAt": "2025-10-04T07:57:27+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "rds:snapshot",
+            "Service": "rds"
+        },
+        {
+            "Arn": "arn:aws:ecs:ap-south-1:556173312286:task-definition/ecommerce-fargate-task:10",
+            "LastReportedAt": "2025-10-04T12:32:43+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "ecs:task-definition",
+            "Service": "ecs"
+        },
+        {
+            "Arn": "arn:aws:rds:ap-south-1:556173312286:snapshot:rds:ecommerce-lambda-db-2025-10-03-14-01",
+            "LastReportedAt": "2025-10-04T07:57:27+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "rds:snapshot",
+            "Service": "rds"
+        },
+        {
+            "Arn": "arn:aws:ec2:ap-south-1:556173312286:subnet/subnet-04612e31b4864e9da",
+            "LastReportedAt": "2025-10-04T14:04:25+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "ec2:subnet",
+            "Service": "ec2"
+        },
+        {
+            "Arn": "arn:aws:ecs:ap-south-1:556173312286:task-definition/ecommerce-fargate-task:8",
+            "LastReportedAt": "2025-10-04T07:57:26+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "ecs:task-definition",
+            "Service": "ecs"
+        },
+        {
+            "Arn": "arn:aws:ec2:ap-south-1:556173312286:network-interface/eni-09a331fdfe231887d",
+            "LastReportedAt": "2025-10-05T20:21:05+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "ec2:network-interface",
+            "Service": "ec2"
+        },
+        {
+            "Arn": "arn:aws:ecs:ap-south-1:556173312286:task-definition/ecommerce-fargate-task:20",
+            "LastReportedAt": "2025-10-04T15:53:39+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "ecs:task-definition",
+            "Service": "ecs"
+        },
+        {
+            "Arn": "arn:aws:elasticache:ap-south-1:556173312286:user:default",
+            "LastReportedAt": "2025-10-04T07:57:28+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "elasticache:user",
+            "Service": "elasticache"
+        },
+        {
+            "Arn": "arn:aws:ecs:ap-south-1:556173312286:task-definition/ecommerce-fargate-task:12",
+            "LastReportedAt": "2025-10-04T13:51:08+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "ecs:task-definition",
+            "Service": "ecs"
+        },
+        {
+            "Arn": "arn:aws:ec2:ap-south-1:556173312286:security-group-rule/sgr-09313abe2cd5d7377",
+            "LastReportedAt": "2025-10-05T05:36:26+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "ec2:security-group-rule",
+            "Service": "ec2"
+        },
+        {
+            "Arn": "arn:aws:ecs:ap-south-1:556173312286:task-definition/ecommerce-fargate-task:5",
+            "LastReportedAt": "2025-10-04T07:57:26+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "ecs:task-definition",
+            "Service": "ecs"
+        },
+        {
+            "Arn": "arn:aws:ssm:ap-south-1:556173312286:parameter/ecommerce-jwt-secret",
+            "LastReportedAt": "2025-10-04T19:21:20+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "ssm:parameter",
+            "Service": "ssm"
+        },
+        {
+            "Arn": "arn:aws:ecs:ap-south-1:556173312286:task-definition/ecommerce-fargate-task:30",
+            "LastReportedAt": "2025-10-05T07:05:00+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "ecs:task-definition",
+            "Service": "ecs"
+        },
+        {
+            "Arn": "arn:aws:rds:ap-south-1:556173312286:og:default:postgres-17",
+            "LastReportedAt": "2025-10-05T06:01:34+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "rds:og",
+            "Service": "rds"
+        },
+        {
+            "Arn": "arn:aws:ecs:ap-south-1:556173312286:task-definition/ecommerce-fargate-task:4",
+            "LastReportedAt": "2025-10-04T07:57:26+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "ecs:task-definition",
+            "Service": "ecs"
+        },
+        {
+            "Arn": "arn:aws:ecs:ap-south-1:556173312286:task-definition/ecommerce-fargate-task:23",
+            "LastReportedAt": "2025-10-04T16:04:56+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "ecs:task-definition",
+            "Service": "ecs"
+        },
+        {
+            "Arn": "arn:aws:rds:ap-south-1:556173312286:pg:default.postgres17",
+            "LastReportedAt": "2025-10-04T11:54:30+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "rds:pg",
+            "Service": "rds"
+        },
+        {
+            "Arn": "arn:aws:ec2:ap-south-1:556173312286:route-table/rtb-056233ea9b3cfccba",
+            "LastReportedAt": "2025-10-04T07:57:25+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "ec2:route-table",
+            "Service": "ec2"
+        },
+        {
+            "Arn": "arn:aws:events:ap-south-1:556173312286:event-bus/default",
+            "LastReportedAt": "2025-10-04T07:57:30+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "events:event-bus",
+            "Service": "events"
+        },
+        {
+            "Arn": "arn:aws:ec2:ap-south-1:556173312286:security-group/sg-093e374a759e324f8",
+            "LastReportedAt": "2025-10-05T03:15:35+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "ec2:security-group",
+            "Service": "ec2"
+        },
+        {
+            "Arn": "arn:aws:rds:ap-south-1:556173312286:auto-backup:ab-6g5rmme7ugost4oledfpxpklnbfk2jvphy6lj6zka37mfvuxjb3y66d4z3akpr5e",
+            "LastReportedAt": "2025-10-04T18:18:40+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "rds:auto-backup",
+            "Service": "rds"
+        },
+        {
+            "Arn": "arn:aws:ecs:ap-south-1:556173312286:task-definition/ecommerce-fargate-task:38",
+            "LastReportedAt": "2025-10-05T10:04:52+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "ecs:task-definition",
+            "Service": "ecs"
+        },
+        {
+            "Arn": "arn:aws:logs:ap-south-1:556173312286:log-group:/ecs/ecommerce-fargate-debug",
+            "LastReportedAt": "2025-10-04T21:56:33+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "logs:log-group",
+            "Service": "logs"
+        },
+        {
+            "Arn": "arn:aws:ec2:ap-south-1:556173312286:internet-gateway/igw-05d084d1094cc4458",
+            "LastReportedAt": "2025-10-04T07:57:25+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "ec2:internet-gateway",
+            "Service": "ec2"
+        },
+        {
+            "Arn": "arn:aws:rds:ap-south-1:556173312286:subgrp:ecommerce-lambda-subnet-group",
+            "LastReportedAt": "2025-10-04T17:06:11+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "rds:subgrp",
+            "Service": "rds"
+        },
+        {
+            "Arn": "arn:aws:ecs:ap-south-1:556173312286:task-definition/ecommerce-fargate-task:7",
+            "LastReportedAt": "2025-10-04T07:57:26+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "ecs:task-definition",
+            "Service": "ecs"
+        },
+        {
+            "Arn": "arn:aws:ecs:ap-south-1:556173312286:task-definition/ecommerce-fargate-task:14",
+            "LastReportedAt": "2025-10-04T14:57:39+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "ecs:task-definition",
+            "Service": "ecs"
+        },
+        {
+            "Arn": "arn:aws:ssm:ap-south-1:556173312286:parameter/ecommerce-vercel-url",
+            "LastReportedAt": "2025-10-04T19:21:20+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "ssm:parameter",
+            "Service": "ssm"
+        },
+        {
+            "Arn": "arn:aws:ecs:ap-south-1:556173312286:task-definition/ecommerce-fargate-task:39",
+            "LastReportedAt": "2025-10-05T10:11:07+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "ecs:task-definition",
+            "Service": "ecs"
+        },
+        {
+            "Arn": "arn:aws:logs:ap-south-1:556173312286:log-group:/ecs/ecommerce-fargate",
+            "LastReportedAt": "2025-10-04T21:56:33+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "logs:log-group",
+            "Service": "logs"
+        },
+        {
+            "Arn": "arn:aws:ecs:ap-south-1:556173312286:task-definition/ecommerce-fargate-task:22",
+            "LastReportedAt": "2025-10-04T16:02:37+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "ecs:task-definition",
+            "Service": "ecs"
+        },
+        {
+            "Arn": "arn:aws:ecs:ap-south-1:556173312286:task-definition/ecommerce-fargate-task:11",
+            "LastReportedAt": "2025-10-04T12:43:28+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "ecs:task-definition",
+            "Service": "ecs"
+        },
+        {
+            "Arn": "arn:aws:ecs:ap-south-1:556173312286:task-definition/ecommerce-fargate-task:40",
+            "LastReportedAt": "2025-10-05T10:43:47+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "ecs:task-definition",
+            "Service": "ecs"
+        },
+        {
+            "Arn": "arn:aws:resource-explorer-2:ap-south-1:556173312286:view/ap-south-1/3338ee63-0a55-46e0-b60b-2da50463c8d8",
+            "LastReportedAt": "2025-10-04T16:52:54+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "resource-explorer-2:view",
+            "Service": "resource-explorer-2"
+        },
+        {
+            "Arn": "arn:aws:rds:ap-south-1:556173312286:db:ecommerce-lambda-db",
+            "LastReportedAt": "2025-10-05T07:03:27+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "rds:db",
+            "Service": "rds"
+        },
+        {
+            "Arn": "arn:aws:ecs:ap-south-1:556173312286:task-definition/ecommerce-fargate-task:18",
+            "LastReportedAt": "2025-10-04T15:45:51+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "ecs:task-definition",
+            "Service": "ecs"
+        },
+        {
+            "Arn": "arn:aws:ecs:ap-south-1:556173312286:task-definition/ecommerce-fargate-task:6",
+            "LastReportedAt": "2025-10-04T07:57:26+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "ecs:task-definition",
+            "Service": "ecs"
+        },
+        {
+            "Arn": "arn:aws:ecs:ap-south-1:556173312286:service/ecommerce-fargate-cluster/ecommerce-fargate-service",
+            "LastReportedAt": "2025-10-04T07:57:27+00:00",
+            "OwningAccountId": "556173312286",
+            "Properties": [],
+            "Region": "ap-south-1",
+            "ResourceType": "ecs:service",
+            "Service": "ecs"
+        }
+    ],
+    "ViewArn": "arn:aws:resource-explorer-2:ap-south-1:556173312286:view/ap-south-1/3338ee63-0a55-46e0-b60b-2da50463c8d8",
+    "Count": {
+        "Complete": true,
+        "TotalResources": 104
+    }
+}

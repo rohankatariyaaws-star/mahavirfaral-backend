@@ -31,9 +31,10 @@ public class ProductDTO {
         dto.setDescription(product.getDescription());
         dto.setImageUrl(product.getImageUrl());
         dto.setCategory(product.getCategory());
-        dto.setPrice(product.getPrice());
-        dto.setQuantity(product.getQuantity());
-        dto.setSize(product.getSize());
+        // Product no longer has direct price/quantity/size - set to null
+        dto.setPrice(null);
+        dto.setQuantity(null);
+        dto.setSize(null);
         
         if (product.getVariants() != null) {
             dto.setSizes(product.getVariants().stream()
