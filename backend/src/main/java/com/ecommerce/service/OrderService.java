@@ -3,6 +3,8 @@ package com.ecommerce.service;
 import com.ecommerce.dto.CreateOrderRequest;
 import com.ecommerce.model.*;
 import com.ecommerce.repository.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,6 +17,8 @@ import java.util.UUID;
 
 @Service
 public class OrderService {
+    private static final Logger log = LoggerFactory.getLogger(OrderService.class);
+    
     @Autowired
     private OrderRepository orderRepository;
     
@@ -40,11 +44,11 @@ public class OrderService {
     public List<Order> getOrdersByUserId(Long userId) {
         User user = userRepository.findById(userId)
             .orElseThrow(() -> new RuntimeException("User not found"));
-        return orderRepository.findByUser(user);
+        return orderRepository.findByUserWithItems(user);
     }
 
     public Optional<Order> getOrderById(Long id) {
-        return orderRepository.findById(id);
+        return orderRepository.findByIdWithItems(id);
     }
 
     @Transactional
@@ -67,7 +71,9 @@ public class OrderService {
         }
         
         // Validate order items
+        log.info("Received order items:");
         for (CreateOrderRequest.OrderItemRequest item : request.getItems()) {
+            log.info("Item - ProductId: {}, Quantity: {}, Size: {}, Price: {}", item.getProductId(), item.getQuantity(), item.getSize(), item.getPrice());
             if (item.getProductId() == null || item.getProductId() <= 0) {
                 throw new RuntimeException("Valid product ID is required for all items");
             }
@@ -91,7 +97,10 @@ public class OrderService {
         // Freeze user details
         order.setUserFullName(user.getName());
         order.setUserEmail(user.getEmail());
+        order.setUserCity(user.getCity());
         order.setUserPhone(user.getPhoneNumber());
+        
+        log.info("User details - Name: {}, City: {}, Phone: {}", user.getName(), user.getCity(), user.getPhoneNumber());
         
         // Get address details if provided (for delivery)
         if (request.getAddressId() != null) {
@@ -111,56 +120,83 @@ public class OrderService {
         order.setNotes(request.getNotes());
         order.setShippingCost(request.getShippingCost() != null ? request.getShippingCost() : BigDecimal.ZERO);
         
+        // Set delivery date if provided
+        if (request.getDeliveryDate() != null && !request.getDeliveryDate().isEmpty()) {
+            try {
+                LocalDateTime deliveryDateTime = LocalDateTime.parse(request.getDeliveryDate() + "T00:00:00");
+                order.setDeliveryDate(deliveryDateTime);
+                log.info("Successfully set delivery date: {} from input: {}", deliveryDateTime, request.getDeliveryDate());
+            } catch (Exception e) {
+                log.error("Failed to parse delivery date: {} - Error: {}", request.getDeliveryDate(), e.getMessage());
+                throw new RuntimeException("Invalid delivery date format: " + request.getDeliveryDate());
+            }
+        } else {
+            log.info("No delivery date provided in request");
+        }
+        
         // Save order first to get ID
         order = orderRepository.save(order);
         
         // Create order items and calculate totals
         BigDecimal subtotal = BigDecimal.ZERO;
+        log.info("Starting to create order items. Count: {}", request.getItems().size());
+        
         for (CreateOrderRequest.OrderItemRequest itemRequest : request.getItems()) {
-            // Get product directly from repository
-            Product product = productRepository.findById(itemRequest.getProductId())
-                .orElseThrow(() -> new RuntimeException("Product not found: " + itemRequest.getProductId()));
-            
-            // Find the corresponding cart item to get the correct price and size (if available)
-            CartItem cartItem = cartItems.stream()
-                .filter(ci -> ci.getProduct().getId().equals(itemRequest.getProductId()))
-                .findFirst()
-                .orElse(null);
-            
-            // Create order item
-            OrderItem orderItem = new OrderItem();
-            orderItem.setOrder(order);
-            orderItem.setProductId(product.getId());
-            orderItem.setProductName(product.getName());
-            orderItem.setProductDescription(product.getDescription());
-            orderItem.setProductImageUrl(product.getImageUrl());
-            orderItem.setProductCategory(product.getCategory());
-            orderItem.setQuantity(itemRequest.getQuantity());
-            
-            // Determine price and size
-            BigDecimal unitPrice;
-            String size = null;
-            
-            if (cartItem != null && cartItem.getPrice() != null) {
-                // Use cart item price and size if available
-                unitPrice = cartItem.getPrice();
-                size = cartItem.getSize();
-            } else {
-                // Fallback: get price from first variant
-                if (product.getVariants() != null && !product.getVariants().isEmpty()) {
-                    unitPrice = product.getVariants().get(0).getPrice();
+            try {
+                log.info("Processing item: {}", itemRequest.getProductId());
+                
+                // Get product directly from repository
+                Product product = productRepository.findById(itemRequest.getProductId())
+                    .orElseThrow(() -> new RuntimeException("Product not found: " + itemRequest.getProductId()));
+                
+                log.info("Found product: {}", product.getName());
+                
+                // Create order item
+                OrderItem orderItem = new OrderItem();
+                orderItem.setOrder(order);
+                orderItem.setProductId(product.getId());
+                orderItem.setProductName(product.getName());
+                orderItem.setProductDescription(product.getDescription());
+                orderItem.setProductImageUrl(product.getImageUrl());
+                orderItem.setProductCategory(product.getCategory());
+                orderItem.setQuantity(itemRequest.getQuantity());
+                
+                // Use price and size from request (frontend provides correct values)
+                BigDecimal unitPrice;
+                if (itemRequest.getPrice() != null) {
+                    unitPrice = itemRequest.getPrice();
+                    log.info("Using price from request: {}", unitPrice);
                 } else {
-                    throw new RuntimeException("No price available for product: " + product.getId());
+                    // Fallback: get price from first variant
+                    if (product.getVariants() != null && !product.getVariants().isEmpty()) {
+                        unitPrice = product.getVariants().get(0).getPrice();
+                        log.info("Using price from variant: {}", unitPrice);
+                    } else {
+                        throw new RuntimeException("No price available for product: " + product.getId());
+                    }
                 }
+                
+                orderItem.setUnitPrice(unitPrice);
+                orderItem.setProductSize(itemRequest.getSize());
+                orderItem.setTotalPrice(unitPrice.multiply(BigDecimal.valueOf(itemRequest.getQuantity())).setScale(2, java.math.RoundingMode.HALF_UP));
+                
+                log.info("Created order item - Size: {}, Price: {}, Total: {}", itemRequest.getSize(), unitPrice, orderItem.getTotalPrice());
+                
+                OrderItem savedOrderItem = orderItemRepository.save(orderItem);
+                log.info("Saved order item with ID: {}", savedOrderItem.getId());
+                
+                // Add the order item to the order's collection
+                order.addOrderItem(savedOrderItem);
+                
+                subtotal = subtotal.add(orderItem.getTotalPrice());
+                
+            } catch (Exception e) {
+                log.error("Error creating order item: {}", e.getMessage(), e);
+                throw new RuntimeException("Failed to create order item: " + e.getMessage(), e);
             }
-            
-            orderItem.setUnitPrice(unitPrice);
-            orderItem.setProductSize(size);
-            orderItem.setTotalPrice(unitPrice.multiply(BigDecimal.valueOf(itemRequest.getQuantity())).setScale(2, java.math.RoundingMode.HALF_UP));
-            
-            orderItemRepository.save(orderItem);
-            subtotal = subtotal.add(orderItem.getTotalPrice());
         }
+        
+        log.info("Finished creating order items. Subtotal: {}", subtotal);
         
         // Calculate tax (8% to match frontend) with proper rounding
         BigDecimal tax = subtotal.multiply(BigDecimal.valueOf(0.08)).setScale(2, java.math.RoundingMode.HALF_UP);
@@ -182,7 +218,18 @@ public class OrderService {
         order.setTax(tax);
         order.setTotalAmount(request.getTotalAmount()); // Use frontend total
         
-        return orderRepository.save(order);
+        Order savedOrder = orderRepository.save(order);
+        
+        // Force flush to ensure all order items are persisted
+        orderItemRepository.flush();
+        
+        // Reload the order with items to ensure they are included in the response
+        Order orderWithItems = orderRepository.findByIdWithItems(savedOrder.getId())
+            .orElseThrow(() -> new RuntimeException("Order not found after creation"));
+        
+        log.info("Final order has {} items, userCity: {}, deliveryDate: {}", 
+            orderWithItems.getOrderItems().size(), orderWithItems.getUserCity(), orderWithItems.getDeliveryDate());
+        return orderWithItems;
     }
     
     @Transactional

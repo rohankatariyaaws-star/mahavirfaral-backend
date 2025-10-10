@@ -38,12 +38,10 @@ PUBLIC_IP=$(aws ec2 describe-instances --instance-ids $INSTANCE_ID --region $AWS
 log_info "Found running instance: $INSTANCE_ID ($PUBLIC_IP)"
 
 function build_and_upload() {
-  log_info "Building backend JAR"
-  BACKEND_JAR=$(ls $ROOT_DIR/backend/target/*.jar 2>/dev/null | head -n1 || true)
-  if [ -z "$BACKEND_JAR" ]; then
-    (cd $ROOT_DIR/backend && mvn clean package -DskipTests)
-    BACKEND_JAR=$(ls $ROOT_DIR/backend/target/*.jar | head -n1)
-  fi
+  log_info "Building backend JAR (forcing rebuild)"
+  # Always rebuild to ensure latest code
+  (cd $ROOT_DIR/backend && mvn clean package -DskipTests)
+  BACKEND_JAR=$(ls $ROOT_DIR/backend/target/*.jar | head -n1)
   
   # Create temp S3 bucket for JAR transfer
   TEMP_BUCKET="$APP_NAME-update-$(date +%s)"

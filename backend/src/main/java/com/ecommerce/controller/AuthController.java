@@ -45,7 +45,7 @@ public class AuthController {
 
         if (user != null && passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) {
             String jwt = jwtUtils.generateJwtToken(user);
-            return ResponseEntity.ok(new JwtResponse(jwt, user.getId(), user.getName(), user.getPhoneNumber(), user.getEmail(), user.getRole()));
+            return ResponseEntity.ok(new JwtResponse(jwt, user.getId(), user.getName(), user.getPhoneNumber(), user.getEmail(), user.getCity(), user.getRole()));
         }
 
         return ResponseEntity.badRequest().body("Invalid credentials");
@@ -82,11 +82,11 @@ public class AuthController {
                     
                     // Create user after successful verification
                     User user = new User(signupRequest.getName(), phoneEmailResponse.getUserPhoneNumber(),
-                            signupRequest.getEmail(), signupRequest.getPassword());
+                            signupRequest.getEmail(), signupRequest.getCity(), signupRequest.getPassword());
                     User savedUser = userService.createUser(user);
                     
                     String jwt = jwtUtils.generateJwtToken(savedUser);
-                    return ResponseEntity.ok(new JwtResponse(jwt, savedUser.getId(), savedUser.getName(), savedUser.getPhoneNumber(), savedUser.getEmail(), savedUser.getRole()));
+                    return ResponseEntity.ok(new JwtResponse(jwt, savedUser.getId(), savedUser.getName(), savedUser.getPhoneNumber(), savedUser.getEmail(), savedUser.getCity(), savedUser.getRole()));
                 } else {
                     return ResponseEntity.badRequest().body("Verification failed");
                 }
@@ -116,7 +116,7 @@ public class AuthController {
             userService.findByPhoneNumber("+1234567890").ifPresent(user -> userService.deleteUser(user.getId()));
         }
 
-        User admin = new User("Administrator", "+1234567890", "admin@example.com", "admin123");
+        User admin = new User("Administrator", "+1234567890", "admin@example.com", "Admin City", "admin123");
         admin.setRole(User.Role.ADMIN);
         userService.createUser(admin);
 

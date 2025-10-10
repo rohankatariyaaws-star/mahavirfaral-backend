@@ -25,6 +25,7 @@ public class Order {
     // User details at time of order (frozen)
     private String userFullName;
     private String userEmail;
+    private String userCity;
     private String userPhone;
     
     // Address details at time of order (frozen)
@@ -50,6 +51,7 @@ public class Order {
     
     private LocalDateTime orderDate;
     private LocalDateTime updatedAt;
+    private LocalDateTime deliveryDate;
     
     private String orderNumber;
     private String paymentMethod;

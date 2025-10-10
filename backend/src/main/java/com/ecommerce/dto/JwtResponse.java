@@ -9,14 +9,16 @@ public class JwtResponse {
     private String name;
     private String phoneNumber;
     private String email;
+    private String city;
     private User.Role role;
     
-    public JwtResponse(String token, Long id, String name, String phoneNumber, String email, User.Role role) {
+    public JwtResponse(String token, Long id, String name, String phoneNumber, String email, String city, User.Role role) {
         this.token = token;
         this.id = id;
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.email = email;
+        this.city = city;
         this.role = role;
     }
     
@@ -37,6 +39,9 @@ public class JwtResponse {
     
     public String getEmail() { return email; }
     public void setEmail(String email) { this.email = email; }
+    
+    public String getCity() { return city; }
+    public void setCity(String city) { this.city = city; }
     
     public User.Role getRole() { return role; }
     public void setRole(User.Role role) { this.role = role; }

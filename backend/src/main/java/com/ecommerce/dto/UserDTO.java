@@ -15,6 +15,7 @@ public class UserDTO {
     private Long id;
     private String name;
     private String email;
+    private String city;
     private String phoneNumber;
     private User.Role role;
     private LocalDateTime createdAt;
@@ -25,6 +26,7 @@ public class UserDTO {
         dto.setId(user.getId());
         dto.setName(user.getName());
         dto.setEmail(user.getEmail());
+        dto.setCity(user.getCity());
         dto.setPhoneNumber(user.getPhoneNumber());
         dto.setRole(user.getRole());
         dto.setCreatedAt(user.getCreatedAt());

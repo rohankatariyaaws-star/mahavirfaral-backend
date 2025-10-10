@@ -24,6 +24,9 @@ public class User {
     @Column(unique = true, nullable = true)
     private String email;
     
+    @Column(nullable = true)
+    private String city;
+    
     @Column(unique = true, nullable = false)
     private String phoneNumber;
     
@@ -66,6 +69,14 @@ public class User {
     public User(String name, String userPhoneNumber, String email, String password) {
         this.name = name;
         this.email = email;
+        this.phoneNumber = userPhoneNumber;
+        this.password = password;
+    }
+    
+    public User(String name, String userPhoneNumber, String email, String city, String password) {
+        this.name = name;
+        this.email = email;
+        this.city = city;
         this.phoneNumber = userPhoneNumber;
         this.password = password;
     }

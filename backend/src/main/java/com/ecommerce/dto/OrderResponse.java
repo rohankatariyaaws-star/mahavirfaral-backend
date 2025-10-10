@@ -12,6 +12,7 @@ public class OrderResponse {
     private Long userId;
     private String userFullName;
     private String userEmail;
+    private String userCity;
     private String userPhone;
     
     private String shippingAddressLine1;
@@ -30,6 +31,7 @@ public class OrderResponse {
     private String status;
     private LocalDateTime orderDate;
     private LocalDateTime updatedAt;
+    private LocalDateTime deliveryDate;
     private String paymentMethod;
     private String notes;
 
@@ -84,6 +86,7 @@ public class OrderResponse {
         response.setUserId(order.getUser().getId());
         response.setUserFullName(order.getUserFullName());
         response.setUserEmail(order.getUserEmail());
+        response.setUserCity(order.getUserCity());
         response.setUserPhone(order.getUserPhone());
         
         response.setShippingAddressLine1(order.getShippingAddressLine1());
@@ -117,6 +120,7 @@ public class OrderResponse {
         response.setStatus(order.getStatus().toString());
         response.setOrderDate(order.getOrderDate());
         response.setUpdatedAt(order.getUpdatedAt());
+        response.setDeliveryDate(order.getDeliveryDate());
         response.setPaymentMethod(order.getPaymentMethod());
         response.setNotes(order.getNotes());
         
@@ -141,6 +145,9 @@ public class OrderResponse {
     
     public String getUserPhone() { return userPhone; }
     public void setUserPhone(String userPhone) { this.userPhone = userPhone; }
+    
+    public String getUserCity() { return userCity; }
+    public void setUserCity(String userCity) { this.userCity = userCity; }
     
     public String getShippingAddressLine1() { return shippingAddressLine1; }
     public void setShippingAddressLine1(String shippingAddressLine1) { this.shippingAddressLine1 = shippingAddressLine1; }
@@ -183,6 +190,9 @@ public class OrderResponse {
     
     public LocalDateTime getUpdatedAt() { return updatedAt; }
     public void setUpdatedAt(LocalDateTime updatedAt) { this.updatedAt = updatedAt; }
+    
+    public LocalDateTime getDeliveryDate() { return deliveryDate; }
+    public void setDeliveryDate(LocalDateTime deliveryDate) { this.deliveryDate = deliveryDate; }
     
     public String getPaymentMethod() { return paymentMethod; }
     public void setPaymentMethod(String paymentMethod) { this.paymentMethod = paymentMethod; }
